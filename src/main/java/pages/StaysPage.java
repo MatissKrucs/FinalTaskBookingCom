@@ -64,10 +64,14 @@ public class StaysPage {
 
     @Step("Choose date in calendar. Start date: {0}, end date: {1}")
     public void chooseDateInCalendar(String startDate, String endDate) {
-        WebElement elementStart = driver.findElement(AppiumBy.accessibilityId(startDate));
-        elementStart.click();
-        WebElement elementEnd = driver.findElement(AppiumBy.accessibilityId(endDate));
-        elementEnd.click();
+        new WebDriverWait(driver, Duration.ofSeconds(30)).until
+                (ExpectedConditions.visibilityOf(monthCustomView)).isDisplayed();
+        new WebDriverWait(driver, GlobalVariables.globalTimeout).
+                until(ExpectedConditions.visibilityOf(driver.findElement(AppiumBy.xpath
+                        ("//android.view.View[contains(@content-desc, '" + startDate + "')]")))).click();
+        new WebDriverWait(driver, GlobalVariables.globalTimeout).
+                until(ExpectedConditions.visibilityOf(driver.findElement(AppiumBy.xpath
+                        ("//android.view.View[contains(@content-desc, '" + endDate + "')]")))).click();
         confirmDatesButton.click();
     }
 
