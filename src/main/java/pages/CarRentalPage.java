@@ -106,9 +106,11 @@ public class CarRentalPage extends Helpers {
                 (ExpectedConditions.visibilityOf(calendarMonthListView)).isDisplayed();
 
         new WebDriverWait(driver, GlobalVariables.globalTimeout).
-                until(ExpectedConditions.visibilityOf(driver.findElement(AppiumBy.accessibilityId(startDate)))).click();
-        WebElement elementEnd = driver.findElement(AppiumBy.accessibilityId(endDate));
-        elementEnd.click();
+                until(ExpectedConditions.visibilityOf(driver.findElement(AppiumBy.xpath
+                        ("//android.view.View[contains(@content-desc, '" + startDate + "')]")))).click();
+        new WebDriverWait(driver, GlobalVariables.globalTimeout).
+                until(ExpectedConditions.visibilityOf(driver.findElement(AppiumBy.xpath
+                        ("//android.view.View[contains(@content-desc, '" + endDate + "')]")))).click();
 
         selectDatesButton.click();
     }
